@@ -34,4 +34,9 @@ const changePost = (req, res) => {
     res.send(`Error occurred: ${req.error}`);
   }
 };
-module.exports = { getPosts, getPost, makePost, changePost };
+
+const removePost = (req, res) => {
+  let blogPosts = deletePost(req.params.id);
+  res.send(blogPosts);
+};
+module.exports = { getPosts, getPost, makePost, changePost, removePost };

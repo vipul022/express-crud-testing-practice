@@ -5,6 +5,7 @@ const {
   getPost,
   makePost,
   changePost,
+  removePost,
 } = require("../controllers/posts_controller");
 
 //get all posts
@@ -14,4 +15,5 @@ router.get("/", getPosts); //get post is defined in posts_controller
 router.get("/:id", getPost);
 router.post("/", makePost);
 router.put("/:id", changePost);
+router.delete("/:id", removePost);
 module.exports = router;

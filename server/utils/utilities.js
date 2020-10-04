@@ -67,6 +67,17 @@ const updatePost = (req) => {
   }
 };
 
+const deletePost = (id) => {
+  if (Object.keys(blogPosts).includes(id)) {
+    delete blogPosts[id];
+    fs.writeFileSync(
+      getDataFileRelativeToApp(dataFile),
+      JSON.stringify(blogPosts)
+    );
+  }
+  return blogPosts;
+};
+
 // Allows flexibility for testing
 // Loads data from dataFile with fs
 function loadData(path) {
@@ -92,4 +103,5 @@ module.exports = {
   getPostById,
   addPost,
   updatePost,
+  deletePost,
 };

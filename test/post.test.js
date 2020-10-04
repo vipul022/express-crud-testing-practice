@@ -9,6 +9,7 @@ const {
   getPostById,
   addPost,
   updatePost,
+  deletePost,
 } = require("../server/utils/utilities");
 //require test data file
 const testDataFile = "../server/data/blog_posts.test.json";
@@ -77,6 +78,15 @@ describe("updatePost", () => {
     };
     let post = updatePost(req);
     expect(post.title).toBe(req.body.title);
+  });
+});
+
+describe("deletePost", () => {
+  test("should delete the specified post", () => {
+    let id = "1";
+    let blogPosts = deletePost(id);
+    let ids = Object.keys(blogPosts);
+    expect(ids.includes("1")).toBe(false);
   });
 });
 
