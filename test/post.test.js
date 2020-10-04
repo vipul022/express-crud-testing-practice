@@ -6,6 +6,8 @@ const {
   getAllPosts,
   loadData,
   getDataFileRelativeToApp,
+  getPostById,
+  addPost,
 } = require("../server/utils/utilities");
 //require test data file
 const testDataFile = "../server/data/blog_posts.test.json";
@@ -16,7 +18,7 @@ beforeEach(() => {
   setupData();
 });
 
-describe("getting all posts", () => {
+describe("get all posts", () => {
   test("should get a post if one exist", () => {
     // Pass an empty req object, Object.keys returns an array of all the keys on an object
     expect(Object.keys(getAllPosts({})).length).toBe(1);
@@ -24,6 +26,36 @@ describe("getting all posts", () => {
 
   test("user name of the first post must be vipul ", () => {
     expect(getAllPosts({})["1"].username).toBe("vipul");
+  });
+});
+
+describe("getPostById", () => {
+  // Define a req object with the expected structure to pass a parameter
+  const req = {
+    params: {
+      id: "1",
+    },
+  };
+  test("user of post with id 1 should be vipul", () => {
+    // console.log("getpost=>", getPostById(req));
+    expect(getPostById(req).username).toBe("vipul");
+  });
+});
+
+describe("addPost", () => {
+  test("should add a post", () => {
+    // define a req object with expected structure
+    const req = {
+      body: {
+        title: "Another post",
+        username: "tester",
+        content: "This is another blog post!",
+        category: "",
+      },
+    };
+    let post = addPost(req);
+    console.log("post=> ", post);
+    expect(post.title).toBe(req.body.title);
   });
 });
 
