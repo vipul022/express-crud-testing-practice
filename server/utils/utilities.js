@@ -46,6 +46,27 @@ function getNextId() {
   return nextId;
 }
 
+const updatePost = (req) => {
+  try {
+    let id = req.params.id;
+    if (!blogPosts[id]) throw "Post not found";
+    blogPosts[id].title = req.body.title;
+    blogPosts[id].content = req.body.content;
+    blogPosts[id].category = req.body.category
+      ? req.body.category
+      : blogPosts[id].category;
+    blogPosts[id].modified_date = Date.now();
+    fs.writeFileSync(
+      getDataFileRelativeToApp(dataFile),
+      JSON.stringify(blogPosts)
+    );
+    return blogPosts[id];
+  } catch (error) {
+    req.error = error;
+    return null;
+  }
+};
+
 // Allows flexibility for testing
 // Loads data from dataFile with fs
 function loadData(path) {
@@ -70,4 +91,5 @@ module.exports = {
   getDataFileRelativeToApp,
   getPostById,
   addPost,
+  updatePost,
 };

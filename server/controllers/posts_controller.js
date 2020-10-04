@@ -23,4 +23,15 @@ const makePost = (req, res) => {
     res.send(`Error occurred: ${req.error}`);
   }
 };
-module.exports = { getPosts, getPost, makePost };
+
+const changePost = (req, res) => {
+  let post = updatePost(req);
+  if (post) {
+    res.status(200);
+    res.send(post);
+  } else {
+    res.status(500);
+    res.send(`Error occurred: ${req.error}`);
+  }
+};
+module.exports = { getPosts, getPost, makePost, changePost };

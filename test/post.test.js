@@ -8,6 +8,7 @@ const {
   getDataFileRelativeToApp,
   getPostById,
   addPost,
+  updatePost,
 } = require("../server/utils/utilities");
 //require test data file
 const testDataFile = "../server/data/blog_posts.test.json";
@@ -55,6 +56,26 @@ describe("addPost", () => {
     };
     let post = addPost(req);
     console.log("post=> ", post);
+    expect(post.title).toBe(req.body.title);
+  });
+});
+
+// updatePost
+describe("updatePost", () => {
+  test("should update a post", () => {
+    // set up a req object
+    const req = {
+      params: {
+        id: "1",
+      },
+      body: {
+        title: "Updated post",
+        username: "tester",
+        content: "This is an updated blog post!",
+        category: "",
+      },
+    };
+    let post = updatePost(req);
     expect(post.title).toBe(req.body.title);
   });
 });
